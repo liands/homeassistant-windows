@@ -1,0 +1,11 @@
+{
+  "domain": "jbl_partylight",
+  "name": "JBL PartyLight",
+  "version": "0.1.0",
+  "documentation": "https://github.com/BaggaBruh/jbl-partybox-ha/blob/main/PROTOCOL.md",
+  "iot_class": "local_polling",
+  "requirements": [
+    "bleak==3.0.2"
+  ],
+  "codeowners": []
+}

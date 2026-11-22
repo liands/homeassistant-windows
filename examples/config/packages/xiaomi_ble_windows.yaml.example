@@ -1,0 +1,86 @@
+command_line:
+  - sensor:
+      name: Xiaomi BLE Snapshot
+      unique_id: xiaomi_ble_windows_snapshot
+      command: 'type "xiaomi_ble\latest.json"'
+      # Reads from the config directory when started with scripts/start.py.
+      command_timeout: 10
+      scan_interval: 60
+      value_template: "{{ value_json.collected_at }}"
+      json_attributes:
+        - rooms
+
+template:
+  - sensor:
+      - name: "Temperatura · Escritório"
+        default_entity_id: sensor.xiaomi_escritorio_temperatura
+        unique_id: xiaomi_escritorio_temperatura
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: "°C"
+        availability: >-
+          {% set reading = (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_ESCRITORIO', {}).get('temperature_c', {}) %}
+          {{ reading.get('value') is number and 0 <= as_timestamp(now()) - as_timestamp(reading.get('at'), 0) < 9000 }}
+        state: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_ESCRITORIO', {}).get('temperature_c', {}).get('value') }}"
+        attributes:
+          measured_at: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_ESCRITORIO', {}).get('temperature_c', {}).get('at') }}"
+      - name: "Umidade · Escritório"
+        default_entity_id: sensor.xiaomi_escritorio_umidade
+        unique_id: xiaomi_escritorio_umidade
+        device_class: humidity
+        state_class: measurement
+        unit_of_measurement: "%"
+        availability: >-
+          {% set reading = (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_ESCRITORIO', {}).get('humidity_pct', {}) %}
+          {{ reading.get('value') is number and 0 <= as_timestamp(now()) - as_timestamp(reading.get('at'), 0) < 9000 }}
+        state: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_ESCRITORIO', {}).get('humidity_pct', {}).get('value') }}"
+        attributes:
+          measured_at: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_ESCRITORIO', {}).get('humidity_pct', {}).get('at') }}"
+      - name: "Temperatura · Quarto"
+        default_entity_id: sensor.xiaomi_quarto_temperatura
+        unique_id: xiaomi_quarto_temperatura
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: "°C"
+        availability: >-
+          {% set reading = (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_QUARTO', {}).get('temperature_c', {}) %}
+          {{ reading.get('value') is number and 0 <= as_timestamp(now()) - as_timestamp(reading.get('at'), 0) < 9000 }}
+        state: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_QUARTO', {}).get('temperature_c', {}).get('value') }}"
+        attributes:
+          measured_at: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_QUARTO', {}).get('temperature_c', {}).get('at') }}"
+      - name: "Umidade · Quarto"
+        default_entity_id: sensor.xiaomi_quarto_umidade
+        unique_id: xiaomi_quarto_umidade
+        device_class: humidity
+        state_class: measurement
+        unit_of_measurement: "%"
+        availability: >-
+          {% set reading = (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_QUARTO', {}).get('humidity_pct', {}) %}
+          {{ reading.get('value') is number and 0 <= as_timestamp(now()) - as_timestamp(reading.get('at'), 0) < 9000 }}
+        state: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_QUARTO', {}).get('humidity_pct', {}).get('value') }}"
+        attributes:
+          measured_at: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_QUARTO', {}).get('humidity_pct', {}).get('at') }}"
+      - name: "Temperatura · Banheiro"
+        default_entity_id: sensor.xiaomi_banheiro_temperatura
+        unique_id: xiaomi_banheiro_temperatura
+        device_class: temperature
+        state_class: measurement
+        unit_of_measurement: "°C"
+        availability: >-
+          {% set reading = (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_BANHEIRO', {}).get('temperature_c', {}) %}
+          {{ reading.get('value') is number and 0 <= as_timestamp(now()) - as_timestamp(reading.get('at'), 0) < 9000 }}
+        state: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_BANHEIRO', {}).get('temperature_c', {}).get('value') }}"
+        attributes:
+          measured_at: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_BANHEIRO', {}).get('temperature_c', {}).get('at') }}"
+      - name: "Umidade · Banheiro"
+        default_entity_id: sensor.xiaomi_banheiro_umidade
+        unique_id: xiaomi_banheiro_umidade
+        device_class: humidity
+        state_class: measurement
+        unit_of_measurement: "%"
+        availability: >-
+          {% set reading = (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_BANHEIRO', {}).get('humidity_pct', {}) %}
+          {{ reading.get('value') is number and 0 <= as_timestamp(now()) - as_timestamp(reading.get('at'), 0) < 9000 }}
+        state: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_BANHEIRO', {}).get('humidity_pct', {}).get('value') }}"
+        attributes:
+          measured_at: "{{ (state_attr('sensor.xiaomi_ble_snapshot', 'rooms') or {}).get('MAC_BANHEIRO', {}).get('humidity_pct', {}).get('at') }}"

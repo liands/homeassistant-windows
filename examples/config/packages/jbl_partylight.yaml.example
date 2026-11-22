@@ -1,0 +1,9 @@
+# Copy to runtime/config/packages/jbl_partylight.yaml after installing the component.
+jbl_partylight:
+  address: !secret jbl_bluetooth_address
+  serial: !secret jbl_serial
+
+# Append this URL to frontend.extra_module_url if you already have other modules.
+frontend:
+  extra_module_url:
+    - /local/jbl-partylight-reconnect.js?v=1

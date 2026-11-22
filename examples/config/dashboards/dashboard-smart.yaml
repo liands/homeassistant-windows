@@ -1,0 +1,1844 @@
+{
+  "views": [
+    {
+      "title": "Visão geral",
+      "path": "inicio",
+      "icon": "mdi:view-dashboard-outline",
+      "show_icon_and_title": true,
+      "type": "sections",
+      "theme": "Smart Glass",
+      "max_columns": 3,
+      "sections": [
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Clima local",
+              "icon": "mdi:weather-partly-cloudy"
+            },
+            {
+              "type": "markdown",
+              "content": "{% set dias = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'] %}{% set meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'] %}**{{ dias[now().weekday()] }}, {{ now().day }} de {{ meses[now().month - 1] }}**",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "clock",
+              "clock_size": "medium",
+              "time_format": "24",
+              "time_zone": "America/Fortaleza",
+              "no_background": true,
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.previsao_exemplo",
+              "name": "Temperatura externa",
+              "show_current": true,
+              "show_forecast": true,
+              "forecast_type": "daily",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "markdown",
+              "content": "{% set umidade = state_attr('weather.previsao_exemplo', 'humidity') %}💧 **Umidade externa** · {{ (umidade | string) ~ '%' if umidade is not none else 'indisponível' }}",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_banheiro_temperatura"
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_quarto_temperatura"
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_escritorio_temperatura",
+              "features": [
+                {
+                  "type": "trend-graph"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Escritório",
+              "icon": "mdi:desk"
+            },
+            {
+              "type": "tile",
+              "entity": "switch.luminaria_exemplo",
+              "name": "Luminária",
+              "icon": "mdi:desk-lamp",
+              "color": "amber",
+              "icon_tap_action": {
+                "action": "toggle"
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "fan.ventilador_exemplo",
+              "name": "Ventilador",
+              "icon": "mdi:fan",
+              "color": "cyan",
+              "icon_tap_action": {
+                "action": "toggle"
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "light.lampada_exemplo",
+              "features": [
+                {
+                  "type": "light-color-favorites"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "light.jbl_partylight_stick",
+              "features": [
+                {
+                  "type": "toggle"
+                }
+              ]
+            },
+            {
+              "type": "tile",
+              "entity": "light.jbl_partylight_stick",
+              "features": [
+                {
+                  "type": "light-brightness"
+                }
+              ]
+            },
+            {
+              "type": "tile",
+              "entity": "number.jbl_partylight_velocidade",
+              "features": [
+                {
+                  "type": "numeric-input"
+                }
+              ]
+            },
+            {
+              "type": "tile",
+              "entity": "light.jbl_partylight_stick",
+              "features": [
+                {
+                  "type": "light-effect"
+                }
+              ]
+            },
+            {
+              "type": "tile",
+              "entity": "light.jbl_partylight_stick",
+              "features": [
+                {
+                  "type": "light-color-favorites"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Tomada",
+              "icon": "mdi:snowflake"
+            },
+            {
+              "type": "tile",
+              "entity": "switch.tomada_exemplo",
+              "name": "Tomada do tomada",
+              "icon": "mdi:power-socket",
+              "icon_tap_action": {
+                "action": "toggle",
+                "confirmation": {
+                  "text": "Alterar a energia da tomada do tomada?"
+                }
+              },
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.tomada_power_exemplo",
+              "name": "Potência",
+              "icon": "mdi:flash",
+              "color": "amber",
+              "grid_options": {
+                "columns": 6,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.tomada_voltage_exemplo",
+              "name": "Tensão",
+              "icon": "mdi:sine-wave",
+              "color": "cyan",
+              "grid_options": {
+                "columns": 6,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.tomada_current_exemplo",
+              "name": "Corrente",
+              "icon": "mdi:current-ac",
+              "color": "cyan",
+              "grid_options": {
+                "columns": 6,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.tomada_total_energy_exemplo",
+              "name": "Energia total",
+              "icon": "mdi:counter",
+              "color": "teal",
+              "grid_options": {
+                "columns": 6,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "statistics-graph",
+              "entities": [
+                "sensor.tomada_total_energy_exemplo"
+              ],
+              "days_to_show": 30,
+              "period": "day",
+              "chart_type": "bar",
+              "stat_types": [
+                "change"
+              ]
+            },
+            {
+              "type": "tile",
+              "entity": "cover.cortina_exemplo",
+              "name": "Cortina",
+              "icon": "mdi:curtains",
+              "features": [
+                {
+                  "type": "cover-open-close"
+                },
+                {
+                  "type": "cover-position"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "button",
+              "name": "Controle da TV",
+              "icon": "mdi:remote-tv",
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-smart/televisao"
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "TV",
+              "entity": "remote.televisao_ir_exemplo",
+              "icon": "mdi:power",
+              "color": "amber",
+              "state_color": true,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.toggle",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                }
+              },
+              "hold_action": {
+                "action": "more-info"
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Ajustes",
+              "icon": "mdi:tune-variant",
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-smart/dispositivos"
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 2
+              }
+            }
+          ]
+        }
+      ],
+      "badges": []
+    },
+    {
+      "title": "TV",
+      "path": "televisao",
+      "icon": "mdi:television",
+      "show_icon_and_title": true,
+      "type": "sections",
+      "theme": "Smart Glass",
+      "max_columns": 3,
+      "sections": [
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Navegação",
+              "icon": "mdi:gamepad-variant-outline"
+            },
+            {
+              "type": "button",
+              "name": "Início",
+              "show_icon": true,
+              "icon": "mdi:home-outline",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "homepage"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Menu",
+              "show_icon": true,
+              "icon": "mdi:menu",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Menu"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Voltar",
+              "show_icon": true,
+              "icon": "mdi:arrow-u-left-top",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Back"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Cima",
+              "show_icon": true,
+              "icon": "mdi:chevron-up",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Navigate Up"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Esquerda",
+              "show_icon": true,
+              "icon": "mdi:chevron-left",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Navigate Left"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "OK",
+              "show_icon": true,
+              "icon": "mdi:checkbox-marked-circle-outline",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "OK"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Direita",
+              "show_icon": true,
+              "icon": "mdi:chevron-right",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Navigate Right"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Baixo",
+              "show_icon": true,
+              "icon": "mdi:chevron-down",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Navigate Down"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Sair",
+              "show_icon": true,
+              "icon": "mdi:exit-to-app",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "exit"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Volume e canais",
+              "icon": "mdi:volume-high"
+            },
+            {
+              "type": "button",
+              "name": "Volume −",
+              "show_icon": true,
+              "icon": "mdi:volume-minus",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Volume Down"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Mudo",
+              "show_icon": true,
+              "icon": "mdi:volume-mute",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "mute"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Volume +",
+              "show_icon": true,
+              "icon": "mdi:volume-plus",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Volume Up"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Canal −",
+              "show_icon": true,
+              "icon": "mdi:minus",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Channel Down"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Canal +",
+              "show_icon": true,
+              "icon": "mdi:plus",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Channel Up"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Guia",
+              "show_icon": true,
+              "icon": "mdi:television-guide",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "e-p-g"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "0",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Channel 0"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "1",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Channel 1"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "2",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "Channel 2"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "3",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "3"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "4",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "4"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "5",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "5"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "6",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "6"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "7",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "7"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "8",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "8"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "9",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "9"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "0–9",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "0-9"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Último",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "last"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Favoritos",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "favorite"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Mídia e entradas",
+              "icon": "mdi:play-circle-outline"
+            },
+            {
+              "type": "button",
+              "name": "Entradas",
+              "show_icon": true,
+              "icon": "mdi:video-input-hdmi",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "input"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Reproduzir",
+              "show_icon": true,
+              "icon": "mdi:play",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "play"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Pausar",
+              "show_icon": true,
+              "icon": "mdi:pause",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "pause"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Anterior",
+              "show_icon": true,
+              "icon": "mdi:skip-previous",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "previous"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Próximo",
+              "show_icon": true,
+              "icon": "mdi:skip-next",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "next"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Retroceder",
+              "show_icon": true,
+              "icon": "mdi:rewind",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "rewind"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "Avançar",
+              "show_icon": true,
+              "icon": "mdi:fast-forward",
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "fast_forward"
+                }
+              },
+              "grid_options": {
+                "columns": 4,
+                "rows": 2
+              }
+            },
+            {
+              "type": "button",
+              "name": "TV",
+              "entity": "remote.televisao_ir_exemplo",
+              "icon": "mdi:power",
+              "color": "amber",
+              "state_color": true,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.toggle",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                }
+              },
+              "hold_action": {
+                "action": "more-info"
+              },
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Outros comandos IR",
+              "icon": "mdi:dots-grid"
+            },
+            {
+              "type": "button",
+              "name": "3D",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "3d"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Proporção",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "aspect"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Azul",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "blue"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Tela",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "display"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Efeito de imagem",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "figure effect"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Congelar imagem",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "freeze"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Verde",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "green"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "history",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "history"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Atalhos",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "hotkeys"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Informações",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "info win"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Rever",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "look back"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Vermelho",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "red"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Pesquisar",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "search for"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Configurar",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "set"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Dormir",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "sleep"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "button",
+              "name": "Amarelo",
+              "show_icon": false,
+              "tap_action": {
+                "action": "perform-action",
+                "perform_action": "remote.send_command",
+                "target": {
+                  "entity_id": "remote.televisao_ir_exemplo"
+                },
+                "data": {
+                  "command": "yellow"
+                }
+              },
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            }
+          ]
+        }
+      ],
+      "badges": []
+    },
+    {
+      "title": "Dispositivos",
+      "path": "dispositivos",
+      "icon": "mdi:tune-variant",
+      "show_icon_and_title": true,
+      "type": "sections",
+      "theme": "Smart Glass",
+      "max_columns": 3,
+      "sections": [
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Tomada do tomada",
+              "icon": "mdi:tune-variant"
+            },
+            {
+              "type": "entities",
+              "show_header_toggle": false,
+              "entities": [
+                {
+                  "entity": "switch.tomada_trava_exemplo",
+                  "name": "Trava infantil",
+                  "icon": "mdi:lock-outline"
+                },
+                {
+                  "entity": "select.tomada_retorno_energia_exemplo",
+                  "name": "Após voltar a energia",
+                  "icon": "mdi:power-cycle"
+                },
+                {
+                  "entity": "select.tomada_led_exemplo",
+                  "name": "Indicador luminoso",
+                  "icon": "mdi:led-on"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Diagnóstico da cortina",
+              "icon": "mdi:curtains"
+            },
+            {
+              "type": "entities",
+              "show_header_toggle": false,
+              "entities": [
+                {
+                  "entity": "switch.cortina_inverter_exemplo",
+                  "name": "Inverter sentido",
+                  "icon": "mdi:swap-horizontal"
+                },
+                {
+                  "entity": "sensor.cortina_duracao_exemplo",
+                  "name": "Duração da última operação",
+                  "icon": "mdi:timer-outline"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Conexões dos aparelhos",
+              "icon": "mdi:lan"
+            },
+            {
+              "type": "entities",
+              "show_header_toggle": false,
+              "entities": [
+                {
+                  "entity": "remote.televisao_ir_exemplo",
+                  "name": "TV · Positivo IR",
+                  "icon": "mdi:remote"
+                },
+                {
+                  "entity": "media_player.televisao_exemplo",
+                  "name": "TV · Android TV",
+                  "icon": "mdi:android"
+                },
+                {
+                  "entity": "remote.televisao_exemplo",
+                  "name": "Controle · Android TV",
+                  "icon": "mdi:remote-tv"
+                },
+                {
+                  "entity": "switch.tomada_secundaria_exemplo",
+                  "name": "Tomada · Positivo",
+                  "icon": "mdi:power-plug-outline"
+                },
+                {
+                  "entity": "switch.sonoff_exemplo",
+                  "name": "Ventilador · Sonoff",
+                  "icon": "mdi:fan"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            }
+          ]
+        }
+      ],
+      "badges": []
+    },
+    {
+      "title": "Clima e mapa",
+      "path": "clima",
+      "icon": "mdi:map-marker-radius-outline",
+      "show_icon_and_title": true,
+      "type": "sections",
+      "theme": "Smart Glass",
+      "max_columns": 2,
+      "sections": [
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Clima local",
+              "icon": "mdi:weather-partly-cloudy"
+            },
+            {
+              "type": "markdown",
+              "content": "{% set dias = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'] %}{% set meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'] %}**{{ dias[now().weekday()] }}, {{ now().day }} de {{ meses[now().month - 1] }}**",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "clock",
+              "clock_size": "medium",
+              "time_format": "24",
+              "time_zone": "America/Fortaleza",
+              "no_background": true,
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.previsao_exemplo",
+              "name": "Temperatura externa",
+              "show_current": true,
+              "show_forecast": true,
+              "forecast_type": "daily",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "markdown",
+              "content": "{% set umidade = state_attr('weather.previsao_exemplo', 'humidity') %}💧 **Umidade externa** · {{ (umidade | string) ~ '%' if umidade is not none else 'indisponível' }}",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Localização da Casa",
+              "icon": "mdi:map-marker"
+            },
+            {
+              "type": "map",
+              "entities": [
+                {
+                  "entity": "zone.home",
+                  "focus": true
+                }
+              ],
+              "default_zoom": 11,
+              "aspect_ratio": "16:9",
+              "grid_options": {
+                "columns": 12,
+                "rows": 6
+              },
+              "theme_mode": "auto"
+            },
+            {
+              "type": "markdown",
+              "content": "O Met.no fornece a temperatura e a umidade externas para a posição usada no mapa.",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            }
+          ]
+        }
+      ],
+      "badges": []
+    },
+    {
+      "type": "sections",
+      "path": "clima-interno",
+      "title": "Clima interno",
+      "icon": "mdi:home-thermometer-outline",
+      "show_icon_and_title": true,
+      "theme": "Smart Glass",
+      "max_columns": 3,
+      "sections": [
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Escritório",
+              "icon": "mdi:desk"
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_escritorio_temperatura",
+              "name": "Temperatura",
+              "color": "amber",
+              "icon": "mdi:thermometer",
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_escritorio_umidade",
+              "name": "Umidade",
+              "color": "cyan",
+              "icon": "mdi:water-percent",
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Quarto",
+              "icon": "mdi:bed-outline"
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_quarto_temperatura",
+              "name": "Temperatura",
+              "color": "amber",
+              "icon": "mdi:thermometer",
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_quarto_umidade",
+              "name": "Umidade",
+              "color": "cyan",
+              "icon": "mdi:water-percent",
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Banheiro",
+              "icon": "mdi:shower-head"
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_banheiro_temperatura",
+              "name": "Temperatura",
+              "color": "amber",
+              "icon": "mdi:thermometer",
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            },
+            {
+              "type": "tile",
+              "entity": "sensor.xiaomi_banheiro_umidade",
+              "name": "Umidade",
+              "color": "cyan",
+              "icon": "mdi:water-percent",
+              "grid_options": {
+                "columns": 6,
+                "rows": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "column_span": 3,
+          "background": {
+            "color": "#283b60",
+            "opacity": 23
+          },
+          "cards": [
+            {
+              "type": "heading",
+              "heading": "Histórico de 24 horas",
+              "icon": "mdi:chart-line"
+            },
+            {
+              "type": "history-graph",
+              "title": "Temperatura",
+              "hours_to_show": 24,
+              "entities": [
+                {
+                  "entity": "sensor.xiaomi_escritorio_temperatura",
+                  "name": "Escritório"
+                },
+                {
+                  "entity": "sensor.xiaomi_quarto_temperatura",
+                  "name": "Quarto"
+                },
+                {
+                  "entity": "sensor.xiaomi_banheiro_temperatura",
+                  "name": "Banheiro"
+                }
+              ],
+              "grid_options": {
+                "columns": 18,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "history-graph",
+              "title": "Umidade",
+              "hours_to_show": 24,
+              "entities": [
+                {
+                  "entity": "sensor.xiaomi_escritorio_umidade",
+                  "name": "Escritório"
+                },
+                {
+                  "entity": "sensor.xiaomi_quarto_umidade",
+                  "name": "Quarto"
+                },
+                {
+                  "entity": "sensor.xiaomi_banheiro_umidade",
+                  "name": "Banheiro"
+                }
+              ],
+              "grid_options": {
+                "columns": 18,
+                "rows": "auto"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

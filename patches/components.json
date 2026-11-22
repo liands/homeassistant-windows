@@ -1,0 +1,18 @@
+[
+  {
+    "name": "sonoff",
+    "version": "3.13.3",
+    "domain": "sonoff",
+    "prefix": "SonoffLAN-3.13.3",
+    "url": "https://codeload.github.com/AlexxIT/SonoffLAN/zip/refs/tags/v3.13.3",
+    "sha256": "f4f11279fc37dc51464fc6d5e3e0118cec42e024be41073afa9b4f35eb72e532"
+  },
+  {
+    "name": "tuya-local",
+    "version": "2026.10.0",
+    "domain": "tuya_local",
+    "prefix": "tuya-local-2026.10.0",
+    "url": "https://codeload.github.com/make-all/tuya-local/zip/refs/tags/2026.10.0",
+    "sha256": "96cbcad24b9236f2395a2c38ea7a9671fe3c13d82d6dfd391bb7da3e52b2b36b"
+  }
+]

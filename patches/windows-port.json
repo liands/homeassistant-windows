@@ -1,0 +1,160 @@
+[
+  {
+    "file": "homeassistant/helpers/config_entry_flow.py",
+    "before": "413495ac7f0592266563c897064362d5e58f2c22059b3999830f71f2a01819f2",
+    "after": "11c9814632b87f4c38ffce8ef7721d5f8c30caf9bc544100dd22371af88c8b71",
+    "edits": [
+      [
+        274,
+        "        # Local import to be sure cloud is loaded and setup\n        from homeassistant.components.cloud import (  # noqa: PLC0415\n            async_active_subscription,\n            async_get_or_create_cloudhook,\n            async_is_connected,\n        )\n\n",
+        ""
+      ],
+      [
+        293,
+        "        if \"cloud\" in self.hass.config.components and async_active_subscription(\n            self.hass\n        ):\n            if not async_is_connected(self.hass):\n                return self.async_abort(\n                    reason=\"cloud_not_connected\",\n                    translation_domain=HOMEASSISTANT_DOMAIN,\n                )\n",
+        "        if \"cloud\" in self.hass.config.components:\n            # Local import to be sure cloud is loaded and setup\n            from homeassistant.components.cloud import (  # noqa: PLC0415\n                async_active_subscription,\n                async_get_or_create_cloudhook,\n                async_is_connected,\n            )\n"
+      ],
+      [
+        302,
+        "            webhook_url = await async_get_or_create_cloudhook(self.hass, webhook_id)\n            cloudhook = True\n",
+        "            if async_active_subscription(self.hass):\n                if not async_is_connected(self.hass):\n                    return self.async_abort(\n                        reason=\"cloud_not_connected\",\n                        translation_domain=HOMEASSISTANT_DOMAIN,\n                    )\n\n                webhook_url = await async_get_or_create_cloudhook(self.hass, webhook_id)\n                cloudhook = True\n            else:\n                webhook_url = async_generate_url(self.hass, webhook_id)\n                cloudhook = False\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/helpers/service.py",
+    "before": "ccf389ff17d99fb40d43de156f7dcea77ccf121f5425961f068529a28a105340",
+    "after": "d6f84ab4bf57b9172bf76a944fcb401611d6ddf29ddd556f1b4f176d84f8812d",
+    "edits": [
+      [
+        8,
+        "",
+        "import os\n"
+      ],
+      [
+        85,
+        "        assist_satellite,\n",
+        ""
+      ],
+      [
+        104,
+        "    return {\n",
+        "    components = {\n"
+      ],
+      [
+        107,
+        "        \"assist_satellite\": assist_satellite,\n",
+        ""
+      ],
+      [
+        125,
+        "",
+        "    if not (\n        os.name == \"nt\"\n        and os.environ.get(\"HASS_WINDOWS_EXPERIMENTAL_VOICE\", \"disabled\") == \"disabled\"\n    ):\n        from homeassistant.components import assist_satellite\n\n        components[\"assist_satellite\"] = assist_satellite\n    return components\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/helpers/signal.py",
+    "before": "7d94acdba3e5eceb4168b02ba4a6e4e5a6ce1ece3aa13d628f96d10d66838e38",
+    "after": "546d24b1707f25cd3d6765a88fbf53c0444da371d60674c3f709e0688f19faa7",
+    "edits": [
+      [
+        4,
+        "",
+        "import os\n"
+      ],
+      [
+        18,
+        "",
+        "\n    if os.name == \"nt\":\n        from homeassistant.util.windows_control import register\n\n        register(hass)\n        return\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/runner.py",
+    "before": "ba50d2e0d1e66d2a22feb22cef64c4f2b106c9ccae93b34b969da32b8d95b0f4",
+    "after": "3971ef804e1b6c18ee84a60ed0612c3136a02124a086a6c5bfad156acfc5d6bd",
+    "edits": [
+      [
+        8,
+        "import fcntl\n",
+        "try:\n    import fcntl\nexcept ModuleNotFoundError:\n    from .util import windows_file_lock as fcntl\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/setup.py",
+    "before": "ff0c065a2c7600c45e943fcba67fde69a668f3f337bd92b96cd72590193b186b",
+    "after": "f0413f8ea01d0a219e039fd7e27c52e3dfb4e984381fb78b5d3a02cb7a4721bb",
+    "edits": [
+      [
+        10,
+        "",
+        "import os\n"
+      ],
+      [
+        286,
+        "",
+        "    if (\n        os.name == \"nt\"\n        and os.environ.get(\"HASS_WINDOWS_EXPERIMENTAL_VOICE\", \"disabled\") == \"disabled\"\n        and domain in {\"assist_pipeline\", \"assist_satellite\"}\n    ):\n        _LOGGER.warning(\"Windows experimental: local voice processing is unavailable; %s is disabled\", domain)\n        return False\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/util/resource.py",
+    "before": "3b42be0904cb9cc7ebe1b6bf57fd35e5f87ad2e586feb51bab539406b19c849a",
+    "after": "6c13356e7b8643806635b1a73a02bb0ee2274ad759fdc70ab06f166b19ab2123",
+    "edits": [
+      [
+        4,
+        "import resource\n",
+        "try:\n    import resource\nexcept ModuleNotFoundError:\n    resource = None\n"
+      ],
+      [
+        15,
+        "",
+        "    if os.name == \"nt\":\n        _LOGGER.debug(\"POSIX file descriptor limits do not apply on Windows\")\n        return\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/util/windows_control.py",
+    "before": null,
+    "after": "77fea28b108281da9e3f6968480a2fc6bcc022747ff7c061cc27a3ee13bbbab9",
+    "edits": [
+      [
+        0,
+        "",
+        "\"\"\"Named Windows event for graceful stop through the service wrapper.\"\"\"\n\nimport asyncio\nimport ctypes\nfrom ctypes import wintypes\nimport hashlib\nimport signal\nimport threading\n\nfrom homeassistant.core import HomeAssistant\n\n_kernel = ctypes.WinDLL(\"kernel32\", use_last_error=True)\nclass _SecurityAttributes(ctypes.Structure):\n    _fields_ = [(\"nLength\", wintypes.DWORD), (\"lpSecurityDescriptor\", wintypes.LPVOID), (\"bInheritHandle\", wintypes.BOOL)]\n\n_advapi = ctypes.WinDLL(\"advapi32\", use_last_error=True)\n_advapi.ConvertStringSecurityDescriptorToSecurityDescriptorW.argtypes = (wintypes.LPCWSTR, wintypes.DWORD, ctypes.POINTER(wintypes.LPVOID), ctypes.POINTER(wintypes.DWORD))\n_advapi.ConvertStringSecurityDescriptorToSecurityDescriptorW.restype = wintypes.BOOL\n_kernel.LocalFree.argtypes = (wintypes.LPVOID,)\n_kernel.LocalFree.restype = wintypes.LPVOID\n_kernel.CreateEventW.argtypes = (ctypes.c_void_p, wintypes.BOOL, wintypes.BOOL, wintypes.LPCWSTR)\n_kernel.CreateEventW.restype = wintypes.HANDLE\n_kernel.WaitForSingleObject.argtypes = (wintypes.HANDLE, wintypes.DWORD)\n_kernel.WaitForSingleObject.restype = wintypes.DWORD\n_kernel.CloseHandle.argtypes = (wintypes.HANDLE,)\n_kernel.CloseHandle.restype = wintypes.BOOL\n\n\ndef event_name(config_dir: str) -> str:\n    \"\"\"Derive a stable control name for this configuration.\"\"\"\n    key = hashlib.sha256(config_dir.lower().encode()).hexdigest()[:24]\n    return rf\"Global\\HomeAssistantCoreWindows.Stop.{key}\"\n\n\ndef register(hass: HomeAssistant) -> None:\n    \"\"\"Schedule normal Home Assistant shutdown when Windows requests stop.\"\"\"\n    name = event_name(hass.config.config_dir)\n    descriptor = wintypes.LPVOID()\n    sddl = \"D:P(A;;GA;;;SY)(A;;GA;;;BA)(A;;GA;;;S-1-5-80-3459068-667703956-1463861028-3542972630-1216828347)\"\n    if not _advapi.ConvertStringSecurityDescriptorToSecurityDescriptorW(sddl, 1, ctypes.byref(descriptor), None):\n        raise ctypes.WinError(ctypes.get_last_error())\n    attributes = _SecurityAttributes(ctypes.sizeof(_SecurityAttributes), descriptor, False)\n    try:\n        handle = _kernel.CreateEventW(ctypes.byref(attributes), True, False, name)\n    finally:\n        _kernel.LocalFree(descriptor)\n    if not handle:\n        raise ctypes.WinError(ctypes.get_last_error())\n\n    def schedule_stop() -> None:\n        if \"windows_service_stop\" not in hass.data:\n            hass.data[\"windows_service_stop\"] = asyncio.create_task(hass.async_stop(0))\n\n    def wait() -> None:\n        try:\n            result = _kernel.WaitForSingleObject(handle, 0xFFFFFFFF)\n            if result == 0 and not hass.loop.is_closed():\n                hass.loop.call_soon_threadsafe(schedule_stop)\n        finally:\n            _kernel.CloseHandle(handle)\n\n    threading.Thread(target=wait, name=\"WindowsStopEvent\", daemon=True).start()\n\n    def on_signal(signum: int, frame: object) -> None:\n        hass.loop.call_soon_threadsafe(schedule_stop)\n\n    for signum in (signal.SIGTERM, signal.SIGINT, signal.SIGBREAK):\n        signal.signal(signum, on_signal)\n"
+      ]
+    ]
+  },
+  {
+    "file": "homeassistant/util/windows_file_lock.py",
+    "before": null,
+    "after": "19fb0360e73ebea668864a81519d150695f25470e5fd37098f7c846de0b59d7e",
+    "edits": [
+      [
+        0,
+        "",
+        "\"\"\"Windows equivalent of the exclusive lock used by the experimental runner.\"\"\"\n\nimport errno\nimport msvcrt\nimport os\n\nLOCK_EX = 2\nLOCK_NB = 4\n\n\ndef flock(fd: int, operation: int) -> None:\n    \"\"\"Lock the first byte until this file descriptor closes.\"\"\"\n    if operation != LOCK_EX | LOCK_NB:\n        raise ValueError(\"Only a nonblocking exclusive lock is supported\")\n    previous = os.lseek(fd, 0, os.SEEK_CUR)\n    try:\n        os.lseek(fd, 0, os.SEEK_SET)\n        try:\n            msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)\n        except OSError as err:\n            if err.errno in (errno.EACCES, errno.EAGAIN, errno.EDEADLK):\n                raise BlockingIOError(errno.EAGAIN, \"Configuration already locked\") from err\n            raise\n    finally:\n        os.lseek(fd, previous, os.SEEK_SET)\n"
+      ]
+    ]
+  },
+  {
+    "file": "aiodns/__init__.py",
+    "before": "0bc5cf7b16127ec37eb077fd85399131b1b0803d7cf739ce0feb1dbaa41f90a4",
+    "after": "5924c08d9f6e6345c23a638bdc4416f54b233a850a39e63a40dfc6648752bbc8",
+    "edits": [
+      [
+        3,
+        "",
+        "import os\n"
+      ],
+      [
+        89,
+        "",
+        "        if nameservers is None and os.name == 'nt':\n            if server := os.environ.get('HASS_WINDOWS_DNS_SERVER'):\n                nameservers = (server,)\n"
+      ]
+    ]
+  }
+]
